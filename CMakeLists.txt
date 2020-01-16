@@ -3,4 +3,7 @@ PROJECT(TreeMaker)
 
 SET(CMAKE_CXX_STANDARD 14)
 
+ADD_SUBDIRECTORY(Tree)
+
 ADD_EXECUTABLE(TreeMaker main.cpp)
+TARGET_LINK_LIBRARIES(TreeMaker TreeLib Random_Generator)
