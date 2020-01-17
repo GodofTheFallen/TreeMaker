@@ -4,7 +4,7 @@
 template<typename DataType>
 class AbstractTreeVertex
 {
-private:
+protected:
     AbstractTreeVertex<DataType> *father;
 
     AbstractTreeVertex<DataType> *setFather(AbstractTreeVertex<DataType> *newFather);
@@ -13,6 +13,10 @@ public:
     DataType data;
 
     const AbstractTreeVertex<DataType> *getFather();
+
+    void delFather();
+
+    virtual void delChild(AbstractTreeVertex<DataType> child2Del) = 0;
 };
 
 template<typename DataType>
@@ -26,6 +30,12 @@ template<typename DataType>
 const AbstractTreeVertex<DataType> *AbstractTreeVertex<DataType>::getFather()
 {
     return father;
+}
+
+template<typename DataType>
+void AbstractTreeVertex<DataType>::delFather()
+{
+
 }
 
 #endif //TREEMAKER_ABSTRACTTREEVERTEX_H
