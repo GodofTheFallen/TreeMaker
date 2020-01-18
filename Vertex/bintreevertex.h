@@ -10,27 +10,33 @@ class BinTreeVertex : public AbstractTreeVertex<DataType>
 protected:
     AbstractTreeVertex<DataType> *leftChild, *rightChild;
 public:
-    BinTreeVertex() : leftChild(nullptr), rightChild(nullptr) {}
+    explicit BinTreeVertex(DataType initData = DataType()) :
+            AbstractTreeVertex<DataType>(initData),
+            leftChild(nullptr), rightChild(nullptr) {}
 
     const BinTreeVertex<DataType> *getLeftChild() { return leftChild; }
 
     const BinTreeVertex<DataType> *getRightChild() { return rightChild; }
 
-    BinTreeVertex<DataType> *setLeftChild(AbstractTreeVertex<DataType> *newChildren)
+    BinTreeVertex<DataType> *setLeftChild(AbstractTreeVertex<DataType> *newChild)
     {
-        newChildren->delFather();
-        leftChild = newChildren;
-        newChildren->setFather(this);
+        newChild->delFather();
+        leftChild = newChild;
+        newChild->setFather(this);
+        return leftChild;
     }
 
-    BinTreeVertex<DataType> *setRightChild(AbstractTreeVertex<DataType> *newChildren)
+    BinTreeVertex<DataType> *setRightChild(AbstractTreeVertex<DataType> *newChild)
     {
-        newChildren->delFather();
-        rightChild = newChildren;
-        newChildren->setFather(this);
+        newChild->delFather();
+        rightChild = newChild;
+        newChild->setFather(this);
+        return rightChild;
     }
 
-    void delChild(AbstractTreeVertex<DataType> child2Del);
+    AbstractTreeVertex<DataType> *setChild(AbstractTreeVertex<DataType> *newChild, int childType);
+
+    void delChild(AbstractTreeVertex<DataType> *child2Del);
 
     void swapChildren();
 
@@ -40,11 +46,12 @@ public:
 
     bool hasBothChildren();
 
+    bool hasChild(int childType);
 
 };
 
 template<typename DataType>
-void BinTreeVertex<DataType>::delChild(AbstractTreeVertex<DataType> child2Del)
+void BinTreeVertex<DataType>::delChild(AbstractTreeVertex<DataType> *child2Del)
 {
     if (leftChild == child2Del) leftChild = nullptr;
     if (rightChild == child2Del) rightChild = nullptr;
@@ -72,6 +79,20 @@ template<typename DataType>
 bool BinTreeVertex<DataType>::hasBothChildren()
 {
     return hasLeftChild() && hasRightChild();
+}
+
+template<typename DataType>
+bool BinTreeVertex<DataType>::hasChild(int childType)
+{
+    if (!childType) return hasLeftChild();
+    else return hasRightChild();
+}
+
+template<typename DataType>
+AbstractTreeVertex<DataType> *BinTreeVertex<DataType>::setChild(AbstractTreeVertex<DataType> *newChild, int childType)
+{
+    if (!childType) return setLeftChild(newChild);
+    else return setRightChild(newChild);
 }
 
 
