@@ -4,9 +4,8 @@ PROJECT(TreeMaker)
 SET(CMAKE_CXX_STANDARD 14)
 
 ADD_SUBDIRECTORY(Vertex)
-
-ADD_EXECUTABLE(TreeMaker main.cpp)
-TARGET_LINK_LIBRARIES(TreeMaker VertexLib)
+ADD_SUBDIRECTORY(Tree)
+ADD_SUBDIRECTORY(RandomMaker)
 
 ADD_EXECUTABLE(make_for_magic make_for_magic.cpp)
-TARGET_LINK_LIBRARIES(make_for_magic VertexLib)
+TARGET_LINK_LIBRARIES(make_for_magic VertexLib TreeLib RandomMaker)

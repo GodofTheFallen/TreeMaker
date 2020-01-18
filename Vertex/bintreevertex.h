@@ -34,20 +34,44 @@ public:
 
     void swapChildren();
 
+    bool hasLeftChild();
+
+    bool hasRightChild();
+
+    bool hasBothChildren();
+
+
 };
 
 template<typename DataType>
 void BinTreeVertex<DataType>::delChild(AbstractTreeVertex<DataType> child2Del)
 {
     if (leftChild == child2Del) leftChild = nullptr;
-    if (rightChild == child2Del)rightChild = nullptr;
+    if (rightChild == child2Del) rightChild = nullptr;
 }
 
 template<typename DataType>
 void BinTreeVertex<DataType>::swapChildren()
 {
     std::swap(leftChild, rightChild);
+}
 
+template<typename DataType>
+bool BinTreeVertex<DataType>::hasLeftChild()
+{
+    return leftChild != nullptr;
+}
+
+template<typename DataType>
+bool BinTreeVertex<DataType>::hasRightChild()
+{
+    return rightChild != nullptr;
+}
+
+template<typename DataType>
+bool BinTreeVertex<DataType>::hasBothChildren()
+{
+    return hasLeftChild() && hasRightChild();
 }
 
 
