@@ -11,10 +11,20 @@ class BinTree
 private:
     std::vector<BinTreeVertex<DataType> *> vertexList;
     std::map<BinTreeVertex<DataType> *, int> vertexIndex;
+    BinTreeVertex<DataType> *root;
 public:
     int size();
 
+    explicit BinTree(DataType initRootData)
+    {
+        root = new BinTreeVertex<DataType>(initRootData);
+        vertexList.push_back(root);
+        vertexIndex[root] = 0;
+    }
+
     BinTreeVertex<DataType> *getVertex(int id);
+
+    BinTreeVertex<DataType> *getRoot();
 
     enum ChildType
     {
@@ -72,6 +82,12 @@ bool BinTree<DataType>::addVertex(int id, BinTree::ChildType type)
     if (id < 0 || id >= size()) return false;
     BinTreeVertex<DataType> *vertex = vertexList[id];
     return addVertex(vertex, type);
+}
+
+template<typename DataType>
+BinTreeVertex<DataType> *BinTree<DataType>::getRoot()
+{
+    return root;
 }
 
 
