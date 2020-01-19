@@ -8,33 +8,37 @@ template<typename DataType>
 class BinTreeVertex : public AbstractTreeVertex<DataType>
 {
 protected:
-    AbstractTreeVertex<DataType> *leftChild, *rightChild;
+    BinTreeVertex<DataType> *leftChild, *rightChild;
 public:
     explicit BinTreeVertex(DataType initData = DataType()) :
             AbstractTreeVertex<DataType>(initData),
             leftChild(nullptr), rightChild(nullptr) {}
 
-    const BinTreeVertex<DataType> *getLeftChild() { return leftChild; }
+    BinTreeVertex<DataType> *getLeftChild() const { return leftChild; }
 
-    const BinTreeVertex<DataType> *getRightChild() { return rightChild; }
+    BinTreeVertex<DataType> *getRightChild() const { return rightChild; }
 
-    BinTreeVertex<DataType> *setLeftChild(AbstractTreeVertex<DataType> *newChild)
+    BinTreeVertex<DataType> *getChild(int childType) const
+    {
+        if (!childType) return leftChild;
+        else return rightChild;
+    }
+
+    void setLeftChild(BinTreeVertex<DataType> *newChild)
     {
         newChild->delFather();
         leftChild = newChild;
         newChild->setFather(this);
-        return leftChild;
     }
 
-    BinTreeVertex<DataType> *setRightChild(AbstractTreeVertex<DataType> *newChild)
+    void setRightChild(BinTreeVertex<DataType> *newChild)
     {
         newChild->delFather();
         rightChild = newChild;
         newChild->setFather(this);
-        return rightChild;
     }
 
-    AbstractTreeVertex<DataType> *setChild(AbstractTreeVertex<DataType> *newChild, int childType);
+    void setChild(BinTreeVertex<DataType> *newChild, int childType);
 
     void delChild(AbstractTreeVertex<DataType> *child2Del);
 
@@ -43,6 +47,8 @@ public:
     bool hasLeftChild();
 
     bool hasRightChild();
+
+    bool isLeaf();
 
     bool hasBothChildren();
 
@@ -89,10 +95,16 @@ bool BinTreeVertex<DataType>::hasChild(int childType)
 }
 
 template<typename DataType>
-AbstractTreeVertex<DataType> *BinTreeVertex<DataType>::setChild(AbstractTreeVertex<DataType> *newChild, int childType)
+void BinTreeVertex<DataType>::setChild(BinTreeVertex<DataType> *newChild, int childType)
 {
-    if (!childType) return setLeftChild(newChild);
-    else return setRightChild(newChild);
+    if (!childType) setLeftChild(newChild);
+    else setRightChild(newChild);
+}
+
+template<typename DataType>
+bool BinTreeVertex<DataType>::isLeaf()
+{
+    return !hasLeftChild() && !hasRightChild();
 }
 
 

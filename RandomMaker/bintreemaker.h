@@ -31,7 +31,7 @@ template<typename DataType>
 BinTree<DataType> *BinTreeMaker<DataType>::genBinTree()
 {
     if (size <= 0) return nullptr;
-    auto *tree = new BinTree<DataType>();
+    auto *tree = new BinTree<DataType>;
     for (int i = 1; i < size; ++i) {
         uniform_int_distribution<int> idGen(i / 2, i - 1);
         uniform_int_distribution<int> typeGen(0, 1);

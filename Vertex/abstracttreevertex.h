@@ -37,7 +37,7 @@ const AbstractTreeVertex<DataType> *AbstractTreeVertex<DataType>::getFather()
 template<typename DataType>
 void AbstractTreeVertex<DataType>::delFather()
 {
-    father->delChild(this);
+    if (father) father->delChild(this);
     father = nullptr;
 }
 
