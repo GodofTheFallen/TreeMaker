@@ -32,9 +32,9 @@ public:
         Right = 1
     };
 
-    bool addVertex(BinTreeVertex<DataType> *vertex, ChildType type);
+    bool addVertex(BinTreeVertex<DataType> *vertex, ChildType type, DataType data = DataType());
 
-    bool addVertex(int id, ChildType type);
+    bool addVertex(int id, ChildType type, DataType data = DataType());
 
 };
 
@@ -51,7 +51,7 @@ BinTreeVertex<DataType> *BinTree<DataType>::getVertex(int id)
 }
 
 template<typename DataType>
-bool BinTree<DataType>::addVertex(BinTreeVertex<DataType> *vertex, BinTree::ChildType type)
+bool BinTree<DataType>::addVertex(BinTreeVertex<DataType> *vertex, ChildType type, DataType data)
 {
     if (!vertexIndex.count(vertex)) return false;
     switch (type) {
@@ -62,7 +62,7 @@ bool BinTree<DataType>::addVertex(BinTreeVertex<DataType> *vertex, BinTree::Chil
             if (vertex->hasRightChild()) return false;
             break;
     }
-    auto *tempVertex = new BinTreeVertex<DataType>;
+    auto *tempVertex = new BinTreeVertex<DataType>(data);
     vertexList.push_back(tempVertex);
     vertexIndex[tempVertex] = size() - 1;
     switch (type) {
@@ -77,11 +77,11 @@ bool BinTree<DataType>::addVertex(BinTreeVertex<DataType> *vertex, BinTree::Chil
 }
 
 template<typename DataType>
-bool BinTree<DataType>::addVertex(int id, BinTree::ChildType type)
+bool BinTree<DataType>::addVertex(int id, BinTree::ChildType type, DataType data)
 {
     if (id < 0 || id >= size()) return false;
     BinTreeVertex<DataType> *vertex = vertexList[id];
-    return addVertex(vertex, type);
+    return addVertex(vertex, type, data);
 }
 
 template<typename DataType>
